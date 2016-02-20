@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+	<meta name="keywords" content="<%=config.keywords%>">
+	<meta name="description" content="<%=config.description%>">
+	<meta name="author" content="<%=config.author%>">
+	<link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/login.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/common.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/validateErr.css">
+	<title><%=config.name%>--后台登录</title>
+</head>
+<body>
+
+	<section class="login-box">
+		<div class="login">
+			<form action="/<%=config.entry%>/login" method="post">
+				<h1>登录</h1>
+				<p>
+					<input type="text" name="account" placeholder="请输入账号" autocomplete="off">
+				</p>
+				<p>
+					<input type="password" name="password" placeholder="请输入密码">
+				</p>
+				<p>
+					<input type="submit" value="后台登录">
+				</p>
+			</form>
+		</div>
+	</section>
+	<input type="hidden" id="err" value="<%=error.str%>" data-type="<%=error.type%>">
+	
+	<script type="text/javascript" src="/public/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="/public/js/validateErr.js"></script>
+
+</body>
+</html>

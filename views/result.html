@@ -1,0 +1,44 @@
+	<%- layout('layout') %>
+	<!-- 主体 -->
+	<section class="container box clearfix search-results">
+
+		<p class="search-condition">搜索关键词：<b style="color: #470182;"><%=key%></b></p>
+
+		<div class="container-left">
+			
+			<% if(articles.length) {%>
+			<% articles.forEach(function(article){ %>
+			<div class="list-box clearfix">
+				<% if(article.thumbnail != ''){ %>
+				<a class="thumbnail" href="/article/<%=article._id%>" target="_blank">
+					<img src="<%=article.thumbnail%>">
+				</a>
+				<% } %>
+				<div>
+					<h2>
+						<a class="category" href=""><%=article.category.name%></a>
+						<a href="/article/<%=article._id%>" target="_blank"><%=article.title%></a>
+					</h2>
+					<div class="data">
+						<span><i class="icon-user"></i><a href=""><%=article.author.name%></a></span>
+						<span><i class="icon-clock-o"></i><%=dateFormat(article.createtime, 'yyyy-mm-dd')%></span>
+						<span><i class="icon-eye"></i>浏览：<%=article.views%>次</span>
+						<span><i class="icon-share-square-o"></i>来源：<%=article.source%><% if(article.sourcepath) { %> 自 <a class="source" href="<%=article.sourcepath%>" target="_blank"><%=article.sourcepath%></a><% } %></span>
+					</div>
+					<p><%= ((article.abstract.length > 90) ? (article.abstract.substring(0, 90) + '...') : article.abstract) %></p>
+				</div>
+			</div>
+			
+			<% }); %>
+			<% }else{ %>
+			<div class="list-box list-noData">
+				<p style="font-size: 20px;text-align: center;">连这篇文章都没有，神马破网站！</p>
+			</div>
+			<% } %>
+
+		</div>
+
+		<%- partial('right') %>
+		
+	</section>
+	<!-- /主体 -->

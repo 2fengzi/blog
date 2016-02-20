@@ -1,0 +1,25 @@
+<aside class="container-right">
+	
+	<!-- 暂时屏蔽 -->
+	<!--
+	<div class="ad-box">
+		<a href="" target="_blank"><img src="" width="280" height="260"></a>
+	</div>
+	-->
+	
+	<div class="recommend">
+		<h3>推荐文章</h3>
+		<ul>
+			<% if(artRights.length){ %>
+			<% artRights.forEach(function(artRight){ %>
+			<li>
+				<a href="/article/<%=artRight._id%>" target="_blank"><%=artRight.title%></a>
+			</li>
+			<% }) %>
+			<% }else{ %>
+			<li>暂时没有推荐文章！</li>
+			<% } %>
+		</ul>
+	</div>
+
+</aside>

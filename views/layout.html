@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui" />
+	<meta name="keywords" content="<%=config.keywords%>">
+	<meta name="description" content="<%=config.description%>">
+	<meta name="author" content="<%=config.author%>">
+	<%- Loader('/public/css/index.min.css')
+		.css('/public/css/reset.css')
+		.css('/public/css/icomoon.css')
+		.css('/public/css/index.css')
+		.css('/public/css/details.css')
+		.css('/public/css/common.css')
+		.done(assets, config.site_static_host, config.mini_assets)
+	%>
+	<meta name="baidu_union_verify" content="1c335d6cbe5f572ae67f4a4b11c5283d">
+	<title><%=config.name%></title>
+</head>
+<body>
+	
+	<!-- 公共头部 -->
+	<header class="header">
+		<div class="box clearfix">
+
+			<nav class="nav">
+				<ul>
+					<li>
+						<a href="/">首页</a>
+					</li>
+					<li>
+						<a href="/about" target="_blank">关于</a>
+					</li>
+					<li>
+						<a href="/app" target="_blank">应用</a>
+					</li>
+				</ul>
+			</nav>
+
+			<div class="search-box">
+				<form class="search-form" method="post" action="/search" enctype="application/x-www-form-urlencoded">
+					<input type="text" name="condition" placeholder="搜索，只能搜索文章标题" autocomplete="off">
+					<button class="icon-search" type="submit"></button>
+				</form>
+			</div>
+
+		</div>
+	</header>
+	<!-- /公共头部 -->
+
+	<header class="mobile-header">
+		<h1><%=config.name%></h1>
+	</header>
+
+	<%- body -%>
+
+	<!-- 公共底部 -->
+	<footer class="footer">
+		<p><%=config.name%> © 2015 All rights reserved & <a href="<%=config.github%>" target="_blank">Repos on Github</a></p>
+		<p><a href="http://www.miitbeian.gov.cn/" target="_blank"><%=config.icp%></a></p>
+	</footer>
+	<!-- /公共底部 -->
+	
+	<!-- 回到顶部 -->
+	<a class="gotoTop" href="javascript: void(0);">
+		<span class="poptip-arrow poptip-arrow-bottom">
+			<em>◆</em>
+			<i>◆</i>
+		</span>
+	</a>
+	<!-- /回到顶部 -->
+	
+	<script type="text/javascript" src="/public/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+		// 搜索不能为空 
+		document.querySelector('.search-form').onsubmit = function(){
+			if(this.querySelector('input[name="condition"]').value == ''){
+				alert('搜索条件不能为空！');
+				return false;
+			}
+		};
+		
+		// 回到顶部
+		function gotoTop(){
+			if($(window).scrollTop() < 200){
+				$('.gotoTop').stop().animate({opacity: 0}, 300, function(){
+					$(this).hide();
+				});
+			}else{
+				$('.gotoTop').stop().show().animate({opacity: 1}, 300);
+			}
+		}
+		$('.gotoTop').on('click', function(){
+			$('html, body').stop().animate({scrollTop: 0}, 800);
+		});
+		gotoTop();
+		$(window).scroll(gotoTop);
+		
+		
+	</script>
+
+</body>
+</html>

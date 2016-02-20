@@ -1,0 +1,80 @@
+	<%- layout('admin/layout') %>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;管理员账号管理
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<em>管理员账号管理</em>
+		</header>
+
+		<div class="common-section">
+
+			<form class="common-form" action="/<%=config.entry%>/user/info" method="post">
+
+				<p>
+					<label>账号：</label>
+					<input type="text" name="account" required autofocus="autofocus" autocomplete="off">
+				</p>
+				<p>
+					<label>密码：</label>
+					<input type="password" name="password" required>
+				</p>
+				<p>
+					<input class="btn" type="submit" value="保存">
+					<button class="btn cancleBtn" type="button" role="cancle">清空</button>
+				</p>
+				<input type="hidden" name="_id" value="<%=user._id%>">
+			</form>
+
+		</div>
+
+	</section>
+	
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript">
+
+		document.querySelector('input[name="account"]').value = '<%=user.account%>';
+		document.querySelector('input[name="password"]').value = '<%=user.password%>';
+
+		document.querySelector('.cancleBtn').onclick = function(){
+			this.form.reset();
+		};
+
+		document.querySelector('input[type="submit"]').onclick = function(){
+
+			var account = document.querySelector('input[name="account"]').value.trim(),
+				password = document.querySelector('input[name="password"]').value.trim(),
+				_id = document.querySelector('input[name="_id"]').value.trim();
+
+			if(!account){
+				alert('账户名称不能为空！');
+				return false;
+			}
+			if(!password){
+				alert('账户密码不能为空！');
+				return false;
+			}
+
+			var data = 'account=' + account + '&password=' + password + '&_id=' + _id;
+
+			console.log(data);
+
+			B.ajax.init('post', '/<%=config.entry%>/user/info', data, function(o){
+
+				var json = eval('('+ o.responseText +')');
+				console.log(json);
+				if(json.status == 'success'){
+					alert('修改成功！5秒后跳转到登录页面，请重新登录！');
+					setTimeout(function(){
+						window.location.href = json.url;
+					}, 5 * 1000);
+				}
+			});
+
+			return false;
+		};
+
+	</script>

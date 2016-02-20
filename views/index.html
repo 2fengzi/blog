@@ -1,0 +1,54 @@
+	<%- layout('layout') %>
+	<!-- 主体 -->
+	<section class="container box clearfix">
+
+		<div class="container-left">
+			
+			<% if(articles.length) {%>
+			<% articles.forEach(function(article){ %>
+			<div class="list-box clearfix">
+				<% if(article.thumbnail != ''){ %>
+				<a class="thumbnail" href="/article/<%=article._id%>" target="_blank">
+					<img src="<%=article.thumbnail%>">
+				</a>
+				<% } %>
+				<div>
+					<h2>
+						<a class="category" href=""><%=article.category.name%></a>
+						<a href="/article/<%=article._id%>" target="_blank"><%=article.title%></a>
+					</h2>
+					<div class="data">
+						<span><i class="icon-user"></i><a href=""><%=article.author.name%></a></span>
+						<span><i class="icon-clock-o"></i><%=dateFormat(article.createtime, 'yyyy-mm-dd')%></span>
+						<span><i class="icon-eye"></i>浏览：<%=article.views%>次</span>
+						<span><i class="icon-share-square-o"></i>来源：<%=article.source%><% if(article.sourcepath) { %> 自 <a class="source" href="<%=article.sourcepath%>" target="_blank"><%=article.sourcepath%></a><% } %></span>
+					</div>
+					<p><%= ((article.abstract.length > 90) ? (article.abstract.substring(0, 90) + '...') : article.abstract) %></p>
+				</div>
+			</div>
+			<% }); %>
+			<div class="page-box">
+				<% if(curNumPage == 1){ %>
+				<a>上一页</a>
+				<% }else{ %>
+				<a href="/page/<%=(curNumPage - 1)%>">上一页</a>
+				<% } %>
+				<span>第 <em><%=curNumPage%></em> 页，总共<%=allPage%>页</span>
+				<% if(curNumPage == allPage){ %>
+				<a>下一页</a>
+				<% }else{ %>
+				<a href="/page/<%=(curNumPage + 1)%>">下一页</a>
+				<% } %>
+			</div>
+			<% }else{ %>
+			<div class="list-box list-noData">
+				<p style="font-size: 20px;text-align: center;">连没有一篇文章，可想而知：这是一个烂网站！</p>
+			</div>
+			<% } %>
+
+		</div>
+
+		<%- partial('right') %>
+		
+	</section>
+	<!-- /主体 -->

@@ -1,0 +1,42 @@
+	<%- layout('admin/layout') %>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;分类管理
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<em>分类管理</em>
+		</header>
+
+		<div class="common-section">
+
+			<div class="addCategory-box">
+				<label>添加分类：</label>
+				<input type="text" placeholder="添加分类，多条分类请用 - 分隔，例如javascript-html5-css3">
+				<button class="btn js-addCategory" type="button">添加</button>
+			</div>
+			<div class="categories-box">
+				<h2>已有标签</h2>
+				<ul>
+					<% if(categories.length) { %>
+						<% categories.forEach(function(category){ %>
+						<li><%=category.name%><i data-id="<%=category._id%>">✕</i></li>
+						<% }) %>
+					<% }else{ %>
+						<li class="noData">还没有添加任何标签！快去添加吧！</li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+
+	</section>
+
+	<input type="hidden" name="entry" value="<%=config.entry%>">
+
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript" src="/public/js/category.js"></script>
+	<script type="text/javascript">
+		category.init();
+	</script>

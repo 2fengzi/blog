@@ -1,0 +1,92 @@
+	<%- layout('admin/layout') %>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;站长信息管理
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<em>站长信息管理</em>
+		</header>
+
+		<div class="common-section">
+			<form class="common-form master-form" action="/<%=config.entry%>/master/info" method="post">
+
+				<p>
+					<label>姓名：</label>
+					<input type="text" name="name" required autofocus="autofocus" value="<%= master.name == undefined ? '' : master.name%>">
+				</p>
+				<p>
+					<label>性别：</label>
+					<input type="radio" name="sex" id="man" value="男" checked><label for="man">男</label>
+					<input type="radio" name="sex" id="woman" value="女"><label for="woman">女</label>
+				</p>
+				<p>
+					<label>电话：</label>
+					<input type="telephone" name="phone" placeholder="电话" value="<%=master.phone == undefined ? '' : master.phone%>">
+				</p>
+				<p>
+					<label>邮箱：</label>
+					<input type="email" name="email" placeholder="邮箱" required value="<%=master.email == undefined ? '' : master.email%>">
+				</p>
+				<p>
+					<label>个人网站：</label>
+					<input type="url" name="website" placeholder="个人网站" value="<%=master.website == undefined ? '' : master.website%>">
+				</p>
+				<p>
+					<label>兴趣：</label>
+					<input type="text" name="hobby" placeholder="添加兴趣，用-隔开，例如看书-听音乐-爬山" value="<%=master.hobby == undefined ? '' : master.hobby%>">
+				</p>
+				<p>
+					<label>工作经验：</label>
+					<span class="editor-box">
+						<textarea name="experience"><%=master.experience == undefined ? '' : master.experience%></textarea>
+					</span>
+				</p>
+				<p>
+					<label>其他：</label>
+					<span class="editor-box">
+						<textarea name="other"><%=master.other == undefined ? '' : master.other%></textarea>
+					</span>
+				</p>
+				<p>
+					<input class="btn" type="submit" value="保存">
+				</p>
+				<input type="hidden" name="_id" value="<%=master._id == undefined ? '' : master._id%>">
+			</form>
+		</div>
+
+	</section>
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+	<script type="text/javascript">
+		// 加载editor 编辑器
+		var simplemde1 = new SimpleMDE({
+			element: document.querySelector('.editor-box').getElementsByTagName('textarea')[0]
+		});
+
+		simplemde1.codemirror.on("change", function(){
+			document.querySelector('textarea[name="experience"]').value = simplemde1.value();
+		});
+
+		var simplemde2 = new SimpleMDE({
+			element: document.querySelectorAll('.editor-box')[1].getElementsByTagName('textarea')[0]
+		});
+
+		simplemde2.codemirror.on("change", function(){
+			document.querySelector('textarea[name="other"]').value = simplemde2.value();
+		});
+
+		var sex = document.querySelectorAll('input[name="sex"]');
+		var val = '<%=master.sex == undefined && "男" %>';
+
+		for(var i = 0; i < sex.length; i++){
+
+			if(sex[i].value == val){
+				sex[i].checked = true;
+			}
+		}
+
+	</script>

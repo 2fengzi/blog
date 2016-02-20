@@ -1,0 +1,112 @@
+	<%- layout('admin/layout') %>
+
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript" src="/public/js/changeImg.js"></script>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;作者管理
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<em>作者管理</em>
+			<a class="btn" href="/<%=config.entry%>/author/publish" target="_blank">添加作者</a>
+		</header>
+
+		<div class="common-section">
+			
+			<table class="table-box">
+				<colgroup>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" name="authorCkd"></th>
+						<th>作者头像</th>
+						<th>作者名称</th>
+						<th>座右铭</th>
+						<th>电话</th>
+						<th>邮箱</th>
+						<th>地址</th>
+						<th>个人网址</th>
+						<th>发文数量</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="js-removeBtn-box">
+					<% if(authors.length) { %>
+						<% authors.forEach(function(author){ %>
+							<tr>
+								<td>
+									<input type="checkbox" name="authorCkd">
+								</td>
+								<td>
+									<span class="preview-box">
+										<img onload="changeImg(this)" src="<%=author.photo%>">
+									</span>
+								</td>
+								<td><%=author.name%></td>
+								<td><%=author.motto%></td>
+								<td><%=author.phone%></td>
+								<td><%=author.email%></td>
+								<% if(author.address == '') { %>
+								<td>- -</td>
+								<% }else{ %>
+								<td><%=author.address%></td>	
+								<% } %>
+								<% if(author.website == '') { %>
+								<td>- -</td>
+								<% }else{ %>
+								<td><%=author.website%></td>	
+								<% } %>
+								<td><%=author.docsum%></td>
+								<td>
+									<a class="modify-btn" href="/<%=config.entry%>/author/alter/<%=author._id%>">修改</a>
+									<button class="btn js-removeBtn" type="button" data-id="<%=author._id%>">删除</button>
+								</td>
+							</tr>
+						<% }); %>
+					<% }else { %>
+
+						<tr>
+							<td colspan="10">还没有添加任何作者！快去添加吧！</td>
+						</tr>
+
+					<% } %>
+				</tbody>
+			</table>
+			
+		</div>
+
+	</section>
+	
+	<script type="text/javascript">
+		// 删除作者信息
+		document.querySelector('.js-removeBtn-box').addEventListener('click', function(e){
+
+			if(/(js-removeBtn$)/.test(e.target.className)){
+
+				var _id = e.target.getAttribute('data-id');
+				var data = '_id=' + _id;
+
+				if(confirm('确定要删除该条作者信息吗？')){
+					B.ajax.init('post', '/<%=config.entry%>/author/remove', data, function(o){
+						alert(o.responseText);
+						window.location.href = '';
+					});
+				}
+			}
+
+		});
+	</script>
+	

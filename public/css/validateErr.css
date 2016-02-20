@@ -1,0 +1,74 @@
+.validate-tips{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	padding: 8px 20px 8px 5px;
+	background-color: #fffae1;
+	z-index: 100;
+	box-shadow: 0 0 1px 1px rgba(0,0,0,.1);
+}
+.validate-tips .tips-close{
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	width: 14px;
+	height: 14px;
+	border-radius: 2px;
+	color: #505050;
+	font-size: 12px;
+	line-height: 14px;
+	text-align: center;
+}
+.validate-tips .tips-close:hover{
+	color: #fff;
+	background-color: #ffb941;
+}
+.validate-tips .tips-msg{
+	padding-left: 12px;
+	color: #333;
+	font-size: 12px;
+	line-height: 16px;
+}
+.icon-warning:before{
+	margin-right: 6px;
+	color: #ffb941;
+}
+
+.poptip-arrow{
+	position: absolute;
+	font-family: simsun;
+	font-size: 14px;
+	font-style: normal;
+	overflow: hidden;
+	text-shadow:0 0 2px rgba(0,0,0,.1);
+}
+.poptip-arrow em,.poptip-arrow i{
+	position: absolute;
+	left:0;
+	top:0;
+	font-style: normal;
+}
+.poptip-arrow em{
+	color: #ccc;
+}
+.poptip-arrow i{
+	color: #fffae1;
+	text-shadow:none;
+}
+.poptip-arrow-bottom{
+	height: 6px;
+	width: 12px;
+	left:50%;
+	margin-left:-6px;
+}
+.poptip-arrow-bottom{
+	bottom: -6px;
+}
+.poptip-arrow-bottom em{
+	top: -10px;
+}
+.poptip-arrow-bottom i{
+	top: -11px;
+}

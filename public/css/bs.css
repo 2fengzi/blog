@@ -1,0 +1,435 @@
+html,body{
+	overflow-x: hidden;
+}
+.layout-left{
+	position: fixed;
+	left: -300px;
+	top: 0;
+	width: 300px;
+	height: 100%;
+	background-color: #470182;
+	box-shadow: 0 0 8px 4px rgba(71, 1, 130, .4);
+	z-index: 10;
+	transition: all .3s;
+}
+.layout-left .left-control{
+	position: absolute;
+	left: 300px;
+	top: 50%;
+	width: 0;
+	height: 20px;
+	margin-top: -20px;
+	border-width: 10px 0 10px 10px;
+	border-style: solid;
+	border-color: transparent #470182;
+	color: #fff;
+	cursor: pointer;
+	transition: all .3s;
+}
+.layout-left .left-control:hover{
+	border-left-width: 16px;
+}
+.layout-right{
+	margin-left: 50px;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: #000;
+	transition: all .3s;
+}
+.logo-box{
+	height: 140px;
+	border-bottom: 1px solid #29004B;
+	line-height: 140px;
+	text-align: center;
+}
+.logo-box a{
+	color: #999;
+	font-size: 40px;
+}
+
+.nav-box{
+	border-top: 1px solid #6500b9;
+}
+.nav-box li{
+	border-bottom: 1px solid #6500b9;
+}
+.nav-box a:hover{
+	background-color: #6500b9;
+}
+.nav-box a{
+	display: block;
+	border-bottom: 1px solid #29004B;
+	padding-left: 70px;
+	color: #fff;
+	font-size: 16px;
+	line-height: 50px;
+}
+
+.panel-box{
+	padding: 100px 0 0 100px;
+}
+.panel-box h2{
+	font-size: 36px;
+}
+.panel-box h2 em{
+	color: #470182;
+	font-weight: bold;
+}
+.panel-box p{
+	color: #666;
+	font-size: 16px;
+	line-height: 40px;
+}
+.panel-box a{
+	display: inline-block;
+	margin-top: 50px;
+	line-height: 36px;
+}
+
+
+.commonBox{
+	padding-right: 50px;
+}
+.commonBox-header{
+	height: 50px;
+	border: 1px solid #ddd;
+	padding: 0 24px;
+	line-height: 50px;
+	background-color: #f0f0f0;
+}
+.commonBox-header em{
+	float: left;
+	font-size: 18px;
+}
+.commonBox-header a{
+	float: right;
+	margin-top: 12px;
+	line-height: 26px;
+}
+
+.table-box{
+	width: 100%;
+	table-layout: fixed;
+}
+.table-box col{
+	width: 10%
+}
+.table-box col:first-child{
+	width: 30px;
+}
+.table-box col:nth-child(2){
+	width: 90px;
+}
+.table-box col:nth-child(3){
+	width: 90px;
+}
+.table-box col:nth-child(9){
+	width: 90px;
+}
+.table-box td, .table-box th{
+	border: 1px solid #ddd;
+}
+.table-box th{
+	padding: 4px 12px;
+	font-size: 16px;
+	line-height: 30px;
+	background-color: #f8f8f8;
+}
+.table-box td{
+	padding: 10px;
+	text-align: center;
+	word-break: break-all;
+	word-wrap: break-word;
+	vertical-align: middle;
+}
+.table-box a{
+	color: #000;
+}
+.table-box a:hover{
+	color: #470182;
+	text-decoration: underline;
+}
+.modify-btn{
+	margin-right: 14px;
+}
+
+.btn{
+	display: inline-block;
+	border-radius: 5px;
+	padding: 0 20px;
+	color: #fff;
+	background-color: #470182;
+	transition: all .3s linear;
+}
+.btn:hover{
+	background-color: #6500b9;
+}
+button.btn, input.btn{
+	border: 0;
+	padding: 0 14px;
+	line-height: 26px;
+	cursor: pointer;
+}
+.crumbs{
+	margin-bottom: 10px;
+	padding-left: 10px;
+	color: #000;
+}
+.crumbs a{
+	color: #000;
+}
+.crumbs a:hover{
+	color: #470182;
+}
+.icon-home:before{
+	vertical-align: -1px;
+}
+
+.common-section{
+	border: 1px solid #ddd;
+	border-top: 0;
+	padding: 30px;
+	background-color: #fff;
+}
+
+.common-form{
+	padding: 30px 50px;
+}
+.common-form label{
+	display: inline-block;
+	width: 6em;
+	text-align: right;
+	vertical-align: middle;
+}
+.common-form p{
+	margin-bottom: 30px;
+}
+.common-form input[type="text"], .common-form input[type="password"], .common-form input[type="email"], .common-form input[type="telephone"], .common-form input[type="url"]{
+	width: 400px;
+	height: 40px;
+	border: 1px solid #ddd;
+	line-height: 40px;
+	text-indent: 1em;
+}
+.common-form textarea{
+	width: 380px;
+	height: 100px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	resize: none;
+	vertical-align: top;
+}
+.common-form select{
+	width: 140px;
+	height: 40px;
+	border: 1px solid #ddd;
+}
+.common-form input[type="submit"]{
+	margin-left: 6.7em;
+	padding: 0 16px;
+	line-height: 40px;
+}
+.common-form button[role="cancle"]{
+	margin-left: 30px;
+	border: 1px solid #aaa;
+	padding: 0 15px;
+	color: #333;
+	line-height: 38px;
+	background-color: #ddd;
+}
+.common-form .form-err{
+	margin-left: 12px;
+	color: #f00;
+	font-size: 12px;
+}
+.common-form label[for]{
+	width: auto;
+	margin-left: 6px;
+	margin-right: 20px;
+}
+.common-form input[type="radio"]{
+	vertical-align: middle;
+}
+.editor-box{
+	display: inline-block;
+	vertical-align: top;
+	width: 70%;
+}
+
+.preview-box{
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #ccc;
+	border-radius: 100%;
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+.upload-box{
+	position: relative;
+	display: inline-block;
+	margin-left: 10px;
+	vertical-align: middle;
+}
+.upload-box input[type="file"]{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 82px;
+	height: 26px;
+	opacity: 0;
+}
+
+
+/* 分类管理 */
+.addCategory-box input[type="text"]{
+	width: 50%;
+	height: 40px;
+	border: 1px solid #ddd;
+	line-height: 40px;
+	text-indent: 1em;
+}
+.addCategory-box button{
+	margin-left: 10px;
+	padding: 0 24px;
+	font-size: 16px;
+	line-height: 42px;
+}
+
+.categories-box{
+	margin-top: 30px;
+	padding-bottom: 30px;
+	font-size: 0;
+}
+.categories-box h2{
+	margin-bottom: 30px;
+	padding-left: 20px;
+	font-size: 16px;
+	line-height: 36px;
+	background-color: #f2f2f2;
+}
+.categories-box ul{
+	padding: 0 20px;
+}
+.categories-box li{
+	position: relative;
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	border-radius: 5px;
+	padding: 0 14px;
+	color: #fff;
+	font-size: 12px;
+	line-height: 28px;
+	background-color: #470182;
+	cursor: default;
+}
+li.noData{
+	display: block;
+	color: #000;
+	font-size: 16px;
+	text-align: center;
+	background-color: transparent;
+}
+.categories-box li i{
+	position: absolute;
+	right: -6px;
+	top: -6px;
+	width: 14px;
+	height: 14px;
+	border-radius: 100%;
+	line-height: 14px;
+	text-align: center;
+	background-color: #470182;
+	display: none;
+	cursor: pointer;
+}
+.categories-box li:hover i{
+	display: block;
+}
+
+/* 文章管理 */
+.article-form{
+
+}
+.article-form .preview-box{
+	width: 180px;
+	height: 160px;
+	border-radius: 0;
+}
+.article-form .upload-box{
+	vertical-align: bottom;
+}
+.article-form input[name="sourcepath"]{
+	width: 250px;
+	display: none;
+}
+.article-form .abstract{
+	width: 68.2%;
+	border: 1px solid #ddd;
+}
+.tip{
+	display: block;
+	color: #470182;
+	font-size: 12px;
+	text-indent: 7.2em;
+}
+.tip a{
+	color: #470182;
+	text-decoration: underline;
+}
+
+.screening-box.common-form{
+	padding: 0;
+}
+.screening-box span{
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom: 30px;
+}
+.screening-box.common-form input{
+	width: 160px;
+	height: 40px;
+	border: 1px solid #ddd;
+	line-height: 40px;
+	text-indent: 1em;
+}
+.screening-box.common-form input[type="button"]{
+	width: auto;
+	height: 42px;
+	text-indent: 0;
+}
+.screening-box.common-form label{
+	width: auto;
+}
+
+.master-form.common-form textarea{
+	width: 68.2%;
+}
+
+/* 分页 */
+.page-box{
+	margin: 30px 0;
+	font-size: 0;
+	text-align: center;
+}
+.page-box a{
+	margin: 0 4px;
+	padding: 0 12px;
+	font-size: 14px;
+}
+.page-box a[href]{
+	display: inline-block;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	color: #000;
+	letter-spacing: 0;
+	line-height: 34px;
+	background-color: #eee;
+}
+.page-box a[href]:hover, .page-box a[href].active{
+	color: #fff;
+	border-color: #470182;
+	background-color: #470182;
+}

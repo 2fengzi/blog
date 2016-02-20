@@ -1,0 +1,37 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "A blog for sharing to the front-end of tech",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/2fengzi/blog"
+  },
+  "keywords": [
+    "web",
+    "front-end",
+    "share"
+  ],
+  "author": "xiaohui",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2fengzi/blog/issues"
+  },
+  "homepage": "https://github.com/2fengzi/blog",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "ejs-mate": "^2.3.0",
+    "eventproxy": "^0.3.4",
+    "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "loader": "^2.0.0",
+    "loader-builder": "^1.0.0",
+    "loader-koa": "^1.0.0",
+    "mongoose": "^4.2.4",
+    "multiparty": "^4.1.2",
+    "serve-favicon": "^2.3.0"
+  }
+}

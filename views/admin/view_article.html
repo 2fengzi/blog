@@ -1,0 +1,202 @@
+	<%- layout('admin/layout') %>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;文章管理
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<em>文章管理</em>
+			<a class="btn" href="/<%=config.entry%>/article/publish" target="_blank">发布文章</a>
+		</header>
+
+		<div class="common-section">
+
+			<form class="screening-box common-form">
+				<span>
+					<label>分类：</label>
+					<select name="category">
+						<option value="0">请选择</option>
+						<% categories.forEach(function(category){%>
+							<option value="<%=category._id%>"><%=category.name%></option>
+						<% }); %>
+					</select>
+				</span>
+				<span>
+					<label>作者：</label>
+					<select name="author">
+						<option value="0">请选择</option>
+						<% authors.forEach(function(author){%>
+							<option value="<%=author._id%>"><%=author.name%></option>
+						<% }); %>
+					</select>
+				</span>
+				<span>
+					<label>发布时间：</label>
+					<input type="text" name="createtime1" id="j_Date1" placeholder="2015-10-14">&nbsp;&nbsp;至&nbsp;&nbsp;<input type="text" name="createtime2" id="j_Date2" placeholder="2015-10-16">
+				</span>
+				<span>
+					<input type="search" name="title" placeholder="文章标题">
+					<input class="btn" type="button" value="搜索">
+				</span>
+
+			</form>
+	
+			<table class="table-box">
+				<colgroup>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+					<col></col>
+				</colgroup>
+				<thead>
+					<tr>
+						<th><input type="checkbox" name="articleCkd"></th>
+						<th>文章标题</th>
+						<th>作者</th>
+						<th>分类</th>
+						<th>来源</th>
+						<th>发布时间</th>
+						<th>浏览量</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody class="js-removeBtn-box">
+					<% if(articles.length) { %>
+					<% articles.forEach(function(article){%>
+						<tr>
+							<td>
+								<input type="checkbox" name="articleCkd">
+							</td>
+							<td>
+								<a href="/article/<%=article._id%>" target="_blank"><%=article.title%></a>
+							</td>
+							<td><%=article.author.name%></td>
+							<td><%=article.category.name%></td>
+							<td><%=article.source%></td>
+							<td><%=dateFormat(article.createtime)%></td>
+							<td><%=article.views%></td>
+							<td>
+								<a class="modify-btn" href="/<%=config.entry%>/article/alter/<%=article._id%>">修改</a>
+								<button class="btn js-removeBtn" type="button" data-id="<%=article._id%>">删除</button>
+							</td>
+						</tr>
+					<% }); %>
+					<% } else{ %>
+						<tr>
+							<td colspan="8">还没有添加任何文章！快去添加吧！</td>
+						</tr>
+					<% } %>
+				</tbody>
+			</table>
+
+			<div class="page-box"></div>
+
+		</div>
+
+	</section>
+	<input type="hidden" name="entry" value="<%=config.entry%>">
+
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript" src="/public/js/page.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/public/css/Calendar.css">
+	<script type="text/javascript" src="/public/js/Calendar.js"></script>
+
+	<script type="text/javascript" src="/public/js/dateFormat.js"></script>
+	
+	<script type="text/javascript">
+
+		// 更新 数据显示列表
+		function update(json, nodata){
+			var tableBox = document.querySelector('.table-box').querySelector('tbody');
+			var html = '';
+
+			if(nodata) if(!json.articles.length) html += '<tr><td colspan="8">没有搜到文章，你打我啊！打我啊！</td></tr>';
+
+			for(var i = 0; i < json.articles.length; i++){
+				html += '<tr>';
+				html += '<td><input type="checkbox" name="articleCkd"></td>';
+				html += '<td><a href="/article/'+ json.articles[i]._id +'" target="_blank">'+ json.articles[i].title +'</a></td>';
+				html += '<td>'+ json.articles[i].author.name +'</td>';
+				html += '<td>'+ json.articles[i].category.name +'</td>';
+				html += '<td>'+ json.articles[i].source +'</td>';
+				html += '<td>'+ dateFormat( new Date(json.articles[i].createtime)) +'</td>';
+				html += '<td>'+ json.articles[i].views +'</td>';
+				html += '<td>';
+				html += '<a class="modify-btn" href="/<%=config.entry%>/article/alter/'+ json.articles[i]._id +'">修改</a>';
+				html += '<button class="btn js-removeBtn" type="button" data-id="'+ json.articles[i]._id +'">删除</button>';
+				html += '</td>';
+				html += '</tr>';		
+			}
+			tableBox.innerHTML = html;
+		}
+
+		// 分页 初始加载
+		var getArt = function(obj){
+			var cur = obj.getAttribute('href').split('#')[1];
+			B.ajax.init('get', '/<%=config.entry%>/article/list/page?cur=' + cur, function(o){
+				var json = eval('(' + o.responseText + ')');
+				update(json);
+			});
+		};
+		var pageData = { cur: (<%=curNumPage%>), pages: <%=allPage%>, cb: getArt };
+		page.init(pageData);
+
+		// 初始化日历插件
+		var myDate1 = new Calender({id:'j_Date1'});
+		var myDate2 = new Calender({id:'j_Date2'});
+	
+		// 删除作者信息
+		document.querySelector('.js-removeBtn-box').addEventListener('click', function(e){
+			if(/(js-removeBtn$)/.test(e.target.className)){
+				var _id = e.target.getAttribute('data-id');
+				var data = '_id=' + _id;
+				if(confirm('确定要删除这篇文章吗？')){
+					B.ajax.init('post', '/<%=config.entry%>/article/remove', data, function(o){
+						alert(o.responseText);
+						window.location.href = '';
+					});
+				}
+			}
+		});
+
+		// 条件搜索
+		var sreen = document.querySelector('.screening-box');
+		sreen.querySelector('input[type="button"]').addEventListener('click', function(){
+
+			var category = sreen.querySelector('select[name="category"]').value,
+				author = sreen.querySelector('select[name="author"]').value,
+				createtime1 = sreen.querySelector('input[name="createtime1"]').value,
+				createtime2 = sreen.querySelector('input[name="createtime2"]').value,
+				title = sreen.querySelector('input[name="title"]').value;
+
+			var data = 'category=' + category + '&author=' + author + '&createtimeO=' + createtime1 + '&createtimeT=' + createtime2 + '&title=' + title;
+
+			B.ajax.init('post', '/<%=config.entry%>/article/search', data, function(o){
+				
+				var json = eval('(' + o.responseText + ')');
+				
+				update(json, true);
+
+				var getSArt = function(obj){
+					var cur = obj.getAttribute('href').split('#')[1];
+					B.ajax.init('get', '/<%=config.entry%>/article/search/list/page?cur=' + cur + '&' + data, function(o){
+						var json = eval('(' + o.responseText + ')');
+						update(json);
+					});
+				};
+
+				var sPageData = { cur: json.curNumPage, pages: json.allPage, url: '/<%=config.entry%>/article/search/list/', cb: getSArt};
+				page.init(sPageData);
+
+			});
+
+		}, false);
+
+	</script>

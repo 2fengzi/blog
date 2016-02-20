@@ -1,0 +1,135 @@
+.list-box{
+	margin-top: -1px;
+	border: 1px solid #eaeaea;
+	padding: 20px;
+	background-color: #fff;
+}
+.list-box:hover{
+	border-color: #e0b8ff;
+	background-color: #f6eefd;
+}
+.list-noData:hover{
+	border-color: #eaeaea;
+	background-color: #fff;
+}
+.list-box:hover + .list-box{
+	border-top-color: #e0b8ff;
+}
+.thumbnail{
+	float: left;
+	margin-right: 24px;
+	border: 1px solid #eaeaea;
+}
+.thumbnail img{
+	width: 180px;
+	height: 160px;
+}
+.list-box h2{
+	font-size: 18px;
+	line-height: 30px;
+}
+.list-box h2 a{
+	color: #333;
+}
+.list-box h2 a:hover{
+	color: #470182;
+}
+.list-box .category{
+	display: inline-block;
+	position: relative;
+	margin-right: 10px;
+	padding: 0 10px;
+	color: #fff;
+	font-size: 12px;
+	line-height: 20px;
+	background-color: #470182;
+	vertical-align: 1px;
+}
+.list-box .category:hover{
+	color: #fff;
+}
+.category:after{
+	position: absolute;
+	right: -4px;
+	top: 50%;
+	content: '';
+	width: 0;
+	height: 0;
+	margin-top: -4px;
+	border-style: solid;
+	border-width: 4px 0 4px 4px;
+	border-color: transparent #470182;
+}
+.list-box .data{
+	margin: 12px 0 18px;
+	color: #999;
+	font-size: 12px;
+}
+.list-box .data span{
+	margin-right: 6px;
+}
+.list-box .data span:first-child a{
+	color: #000;
+}
+.list-box .data a{
+	color: #999;
+}
+.list-box a.source{
+	color: #999;
+	text-decoration: underline;
+	word-break: break-all;
+}
+.list-box p{
+	color: #666;
+	line-height: 24px;
+}
+
+.page-box{
+	display: flex;
+	flex-flow: row;
+	align-items: stretch;
+	justify-content: space-between;
+	border: 1px solid #eaeaea;
+	border-top: 0;
+	padding: 32px 24px;
+	text-align: center;
+	background-color: #fff;
+}
+.page-box a{
+	flex: 1;
+	height: 46px;
+	border: 1px solid #ddd;
+	color: #333;
+	font-size: 18px;
+	line-height: 46px;
+	text-align: center;
+	background-color: #eee;
+	box-sizing: border-box;
+}
+.page-box a[href]{
+	border: 0;
+	color: #fff;
+	background-color: #470182;
+}
+.page-box a[href]:hover{
+	background-color: #7002cd;
+}
+.page-box span{
+	flex: 1;
+	line-height: 46px;
+}
+.page-box span em{
+	color: #470182;
+	font-weight: bold;
+}
+
+.search-results{
+	position: relative;
+}
+.search-condition{
+	position: absolute;
+	left: 0;
+	top: 28px;
+	color: #333;
+	font-size: 18px;
+}

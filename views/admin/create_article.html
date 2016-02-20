@@ -1,0 +1,177 @@
+	<%- layout('admin/layout') %>
+	
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript" src="/public/js/changeImg.js"></script>
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;
+			<a href="/<%=config.entry%>/article/list">文章管理</a>&nbsp;&gt;&nbsp;<% if(article) { %>修改文章
+			<% }else{ %>添加文章<% } %>
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<% if(article) { %>
+			<em>修改文章</em>
+			<% }else{ %>
+			<em>添加文章</em>
+			<% } %>
+		</header>
+
+		<div class="common-section">
+			
+			<% if(article) { %>
+			<form class="common-form article-form" action="/<%=config.entry%>/article/alter/<%=article._id%>" method="post" enctype="multipart/form-data">
+			<% }else{ %>
+			<form class="common-form article-form" action="/<%=config.entry%>/article/publish" method="post" enctype="multipart/form-data">
+			<% } %>
+				<p>
+					<label>文章标题：</label>
+					<% if(article) { %>
+					<input type="text" name="title" autofocus="autofocus" placeholder="文章标题" required value="<%=article.title%>">
+					<% }else{ %>
+					<input type="text" name="title" autofocus="autofocus" required>
+					<% } %>
+				</p>
+				<p>
+					<label>作者：</label>
+
+					<select name="author">
+						<% authors.forEach(function(author){ %>
+							<% if(article && article.author.toString() == author._id.toString()) { %>
+								<option value="<%=author._id%>" selected><%=author.name%></option>
+							<% } else{ %>
+								<option value="<%=author._id%>"><%=author.name%></option>
+							<% } %>
+						<% }); %>
+					</select>
+				</p>
+				<p>
+					<label>来源：</label>
+					<input type="radio" name="source" id="original" value="原创" checked><label for="original">原创</label>
+					<input type="radio" name="source" id="reprint" value="转载"><label for="reprint">转载</label>
+					<input type="text" name="sourcepath" placeholder="转载地址">
+				</p>
+				<p>
+					<label>分类：</label>
+					<select name="category">
+						<% categories.forEach(function(category){ %>
+							<% if(article && article.category.toString() == category._id.toString()) { %>
+								<option value="<%=category._id%>" selected><%=category.name%></option>
+							<% } else{ %>
+								<option value="<%=category._id%>"><%=category.name%></option>
+							<% } %>
+						<% }); %>
+					</select>
+				</p>
+				<p>
+					<label>缩略图：</label>
+					<span class="preview-box">
+						<% if(article) { %>
+						<img onload="changeImg(this)" class="preview" src="<%= (function(){if(article.thumbnail == ''){ return config.default_img } else{ return article.thumbnail } })()%>">
+						<input type="hidden" name="alterThumbnail" value="<%= (function(){if(article.thumbnail == ''){ return '' } else{ return article.thumbnail } })() %>">
+						<% }else{ %>
+						<img class="preview" src="/public/img/default.jpg" onload="changeImg(this)">
+						<% } %>
+					</span>
+					<span class="upload-box">
+						<input type="file" name="thumbnail" onchange="previewImage(this)">
+						<button class="upload-btn btn" type="button">上传图片</button>
+					</span>
+				</p>
+				<p>
+					<label>摘要：</label>
+					<% if(article) { %>
+					<textarea class="abstract" name="abstract" placeholder="摘要" required><%=article.abstract%></textarea>
+					<% }else{ %>
+					<textarea class="abstract" name="abstract" placeholder="摘要" required></textarea>
+					<% } %>
+				</p>
+				<p>
+					<label>正文：</label>
+					<span class="editor-box">
+						<% if(article) { %>
+						<textarea name="content" required><%=article.content%></textarea>
+						<% }else{ %>
+						<textarea name="content" required></textarea>
+						<% } %>
+					</span>
+					<b class="tip">编辑器内的内容必须使用markdown的格式来编辑！<a href="http://www.appinn.com/markdown/" target="_blank">了解markdown</a></b>
+				</p>
+				<p><input class="btn" type="submit" value="保存"></p>
+			</form>
+
+		</div>
+
+	</section>
+	<script type="text/javascript" src="/public/js/previewImg.js"></script>
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+	<script src="//cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+	<script src="/public/js/marked.js"></script>
+	<script type="text/javascript">
+
+		// 提示先添加前提数据
+		(function(){
+
+			if(!<%=authors.length%>){
+				if(confirm('作者列表中没有数据，请先添加作者！')){
+					window.location.href = '/<%=config.entry%>/author/publish';
+				}
+			}else if(!<%=categories.length%>){
+				if(confirm('分类列表中没有数据，请先添加分类！')){
+					window.location.href = '/<%=config.entry%>/category/publish';
+				}
+			}
+
+		})();
+
+		// 显示转载地址输入框
+		document.querySelector('.article-form').addEventListener('click', function(e){
+
+			if(e.target.id == 'reprint'){
+				this.querySelector('input[name="sourcepath"]').style.display = 'inline-block';
+			}else if(e.target.id == 'original'){
+				this.querySelector('input[name="sourcepath"]').style.display = 'none';
+			}
+
+		});
+
+		// 加载editor 编辑器
+		var simplemde = new SimpleMDE({
+			element: document.querySelector('.editor-box').getElementsByTagName('textarea')[0],
+			previewRender: function(plainText, preview) { // Async method
+				setTimeout(function(){
+					preview.innerHTML = marked(plainText);
+				}, 250);
+
+				return "Loading...";
+			}
+		});
+	
+		simplemde.codemirror.on("change", function(){
+			document.querySelector('textarea[name="content"]').value = simplemde.value();
+		});
+
+		<% if(article) { %>
+		// 修改文章，来源的赋值
+		(function(){
+
+			var source = document.querySelectorAll('input[name="source"]');
+			var val = '<%=article.source%>';
+
+			for(var i = 0; i < source.length; i++){
+
+				if(source[i].value == val){
+					source[i].checked = true;
+				}
+				if(source[i].value == '转载'){
+					source[i].parentNode.querySelector('input[name="sourcepath"]').style.display = 'inline-block';
+					source[i].parentNode.querySelector('input[name="sourcepath"]').value = '<%=article.sourcepath%>';
+				}
+			}
+		})();
+		<%}%>
+
+
+
+	</script>

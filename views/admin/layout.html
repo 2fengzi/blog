@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="keywords" content="<%=config.keywords%>">
+	<meta name="description" content="<%=config.description%>">
+	<meta name="author" content="<%=config.author%>">
+	<link rel="stylesheet" type="text/css" href="/public/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="/public/css/bs.css">
+	<title><%=config.name%></title>
+</head>
+<body>
+	<aside class="layout-left">
+		<span class="left-control" switch="off"></span>
+		<div class="logo-box">
+			<a href=""><%=config.name%></a>
+		</div>
+		<nav class="nav-box clearfix">
+			<ul>
+				<li>
+					<a href="/<%=config.entry%>">首页</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/article/list">文章管理</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/category/list">分类管理</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/author/list">作者信息管理</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/master/info">站长信息管理</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/user/info">管理员账号管理</a>
+				</li>
+				<li>
+					<a href="/" target="_blank">预览网站</a>
+				</li>
+				<li>
+					<a href="/<%=config.entry%>/logout">退出</a>
+				</li>
+			</ul>
+		</nav>
+	</aside>
+	
+	<section class="layout-right">
+		<%- body %>
+	</section>
+
+	<script type="text/javascript">
+		(function(){
+			document.querySelector('.left-control').onclick = function(){
+				if(this.getAttribute('switch') == 'on'){
+					this.setAttribute('switch','off');
+					document.querySelector('.layout-left').style.left = '-300px';
+					document.querySelector('.layout-right').style.marginLeft = '50px';
+				}else{
+					this.setAttribute('switch','on');
+					document.querySelector('.layout-left').style.left = '0';
+					document.querySelector('.layout-right').style.marginLeft = '350px'
+				}
+			};
+		})();
+	</script>
+
+</body>
+</html>

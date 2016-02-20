@@ -1,0 +1,108 @@
+	<%- layout('admin/layout') %>
+
+	<script type="text/javascript" src="/public/js/common.js"></script>
+	<script type="text/javascript" src="/public/js/changeImg.js"></script>
+
+	<section class="commonBox">
+
+		<p class="crumbs">
+			<a href="/<%=config.entry%>/"><i class="icon-home"></i>首页</a>&nbsp;&gt;&nbsp;
+			<a href="/<%=config.entry%>/author/list">作者管理</a>&nbsp;&gt;&nbsp;<% if(author) { %>修改作者
+			<% }else{ %>添加作者<% } %>
+		</p>
+		
+		<header class="commonBox-header clearfix">
+			<% if(author) { %>
+			<em>修改作者</em>
+			<% }else{ %>
+			<em>添加作者</em>
+			<% } %>
+		</header>
+
+		<div class="common-section">
+
+			<% if(author) { %>
+			<form class="common-form" action="/<%=config.entry%>/author/alter/<%=author._id%>" method="post" enctype="multipart/form-data">
+			<% }else{ %>
+			<form class="common-form" action="/<%=config.entry%>/author/publish" method="post" enctype="multipart/form-data">
+			<% } %>
+				<p>
+					<label>作者头像：</label>
+					<span class="preview-box">
+						<% if(author) { %>
+						<img onload="changeImg(this)" class="preview" src="<%=author.photo%>">
+						<input type="hidden" name="alterPhoto" value="<%=author.photo%>">
+						<% }else{ %>
+						<img class="preview" src="/public/img/default.jpg" onload="changeImg(this)">
+						<% } %>
+					</span>
+					<span class="upload-box">
+						<input type="file" name="photo" onchange="previewImage(this)">
+						<button class="upload-btn btn" type="button">上传头像</button>
+					</span>
+				</p>
+				<p>
+					<label>作者姓名：</label>
+					<% if(author) { %>
+					<input type="text" name="name" autofocus="autofocus" required value="<%=author.name%>">
+					<% }else{ %>
+					<input type="text" name="name" autofocus="autofocus" required>
+					<% } %>
+				</p>
+				<p>
+					<label>座右铭：</label>
+					<% if(author) { %>
+					<textarea name="motto"><%=author.motto%></textarea>
+					<% }else{ %>
+					<textarea name="motto"></textarea>
+					<% } %>
+				</p>
+				<p>
+					<label>电话：</label>
+					<% if(author) { %>
+					<input type="telephone" name="phone" placeholder="电话" required value="<%=author.phone%>">
+					<% }else{ %>
+					<input type="telephone" name="phone" placeholder="电话" required>
+					<% } %>
+				</p>
+				<p>
+					<label>邮箱：</label>
+					<% if(author) { %>
+					<input type="email" name="email" placeholder="邮箱" required value="<%=author.email%>">
+					<% }else{ %>
+					<input type="email" name="email" placeholder="邮箱" required>
+					<% } %>
+				</p>
+				<p>
+					<label>地址：</label>
+					<select class="province"></select>
+					<select class="city"></select>
+					<% if(author) { %>
+					<input type="hidden" name="address" value="<%=author.address%>">
+					<% }else{ %>
+					<input type="hidden" name="address">
+					<% } %>
+				</p>
+				<p>
+					<label>个人网站：</label>
+					<% if(author) { %>
+					<input type="url" name="website" placeholder="个人网站" value="<%=author.website%>">
+					<% }else{ %>
+					<input type="url" name="website" placeholder="个人网站">
+					<% } %>
+				</p>
+				<p><input class="btn" type="submit" value="保存"></p>
+			</form>
+
+		</div>
+
+	</section>
+
+	<script type="text/javascript" src="/public/js/previewImg.js"></script>
+
+	<script type="text/javascript" src="/public/js/sitedata.js"></script>
+	<script type="text/javascript" src="/public/js/address.js"></script>
+	<script type="text/javascript">
+		// 初始化 省市数据 
+		sitedata.init(document.querySelector('[name="address"]').value.split('-')[0], document.querySelector('[name="address"]').value.split('-')[1]);
+	</script>

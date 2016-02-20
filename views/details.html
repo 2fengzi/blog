@@ -1,0 +1,107 @@
+	<%- layout('layout') %>
+	<!-- 主体 -->
+	<section class="container box clearfix">
+
+		<div class="container-left">
+
+			<section class="content-box">
+
+				<h1><%=article.title%></h1>
+
+				<div class="data">
+					<span><i class="icon-bookmark"></i>分类：<a href=""><%=article.category.name%></a></span>
+					<span><i class="icon-user"></i><a href=""><%=article.author.name%></a></span>
+					<span><i class="icon-clock-o"></i><%=dateFormat(article.createtime, 'yyyy-mm-dd')%></span>
+					<span><i class="icon-eye"></i>浏览：<%=article.views%>次</span>
+					<span><i class="icon-share-square-o"></i>来源：<%=article.source%></span>
+				</div>
+
+				<div class="abstract"><%=article.abstract%></div>
+
+				<div class="content">
+					<%=article.content%>
+				</div>
+
+				<div class="author-box">
+					<h3>
+						<a href="" target="_blank">
+							<img src="<%=author.photo%>" height="40" width="40">
+							<em><%=author.name%></em>	
+						</a>
+						<dl class="share-box clearfix">
+							<dt>分享：</dt>
+							<dd class="icon-facebook-square"></dd>
+							<dd class="icon-twitter-square"></dd>
+							<dd class="icon-google-plus-square"></dd>
+						</dl>
+					</h3>
+					<p><%=author.motto%></p>
+					<div class="author-data">
+						<% if(author.website != '') { %>
+						<span>
+							<i class="icon-link"></i>
+							<a href="<%=author.website%>" target="_blank"><%=author.website%></a>
+						</span>
+						<% } %>
+						<% if(author.address != '') { %>
+						<span><i class="icon-map-marker"></i><%=author.address%></span>
+						<% } %>
+					</div>
+				</div>
+
+			</section>
+
+			<section class="article-control clearfix">
+				<span class="article-prev">
+					<i class="icon-arrow-left"></i>
+					<em>上一篇：</em>
+					<% if(prevArt) { %>
+					<a href="/article/<%=prevArt._id%>"><%= (prevArt.title.length > 10 ? (prevArt.title.substring(10) + '...') : prevArt.title)%></a>
+					<% }else{ %>
+					<a>前面神马都没有了！</a>
+					<% } %>
+				</span>
+				<span class="article-next">
+					<em>下一篇：</em>
+					<% if(nextArt) { %>
+					<a href="<%=nextArt._id%>"><%=(nextArt.title.length > 10 ? (nextArt.title.substring(10) + '...') : nextArt.title)%></a>
+					<% }else{ %>
+					<a>后面神马都没有了！</a>
+					<% } %>
+					<i class="icon-arrow-right"></i>
+				</span>
+			</section>
+
+			<section class="comment-box">
+				<div id="disqus_thread"></div>
+				<script type="text/javascript">
+				    /* * * CONFIGURATION VARIABLES * * */
+				    var disqus_shortname = 'huidee';
+				    
+				    /* * * DON'T EDIT BELOW THIS LINE * * */
+				    (function() {
+				        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+				        dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+				        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+				    })();
+				</script>
+				<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+			</section>
+			
+		</div>
+
+		<%- partial('right') %>
+		
+	</section>
+	<!-- /主体 -->
+	<link rel="stylesheet" type="text/css" href="/public/css/styles/docco.css">
+	<script type="text/javascript" src="/public/js/highlight.pack.js"></script>
+	<script src="/public/js/marked.js"></script>
+	<script type="text/javascript">
+		// 文章详情中的代码高亮
+		hljs.initHighlightingOnLoad();
+		// 将markdown格式转换成html
+		document.querySelector('.content').innerHTML = marked(document.querySelector('.content').innerHTML.trim());
+	</script>
+
+	
